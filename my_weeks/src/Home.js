@@ -9,10 +9,7 @@ export default function Home(props) {
         <MainWrap>
             <Title>내 일주일은 ?</Title>
             <WeekBox>
-                {thisweek.map((v, i) => { 
-                    console.log(v)
-                    // 오류 뿜던놈이 key=i 넣어주니까 조용해짐 고유값이 필요한놈인가 (???)
-                    return <Line week={v} key={i}/> })}
+                {thisweek.map((v, i) => <Line week={v} key={i}/> )}
             </WeekBox>
         </MainWrap>
     )
@@ -20,6 +17,7 @@ export default function Home(props) {
 
 
 
+//스타일
 const MainWrap = styled.div`
     background-color: #ddd;
     height: 640px;

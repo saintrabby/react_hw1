@@ -7,7 +7,7 @@ export default function Score(props) {
     let thisDay = useParams();
     const [num, setNum] = useState(0);
 
-    const numbering = [1, 2, 3, 4, 5]
+    console.log(thisDay)
 
     function numChange(p) {
         setNum(p)
@@ -18,9 +18,10 @@ export default function Score(props) {
             <Title><WeekStyle>{thisDay.weekDay}요일</WeekStyle> 평점 남기기</Title>
             <WeekBox>
                 <CircleBox>
-                    {numbering.map((v, i) => {
-                        return <WeekCircle key={i} mynum={i+1} cnum={num} onClick={() => numChange(i+1)} />
-                    })}
+                    {Array(5).fill(0).map((v, i) => (
+                        <WeekCircle key={i} mynum={i + 1} cnum={num} onClick={() =>
+                            numChange(i + 1)} />
+                    ))}
                 </CircleBox>
 
                 <div style={{ fontSize: '18px', marginTop: '20px' }}>제 점수는 요</div>
@@ -35,6 +36,7 @@ export default function Score(props) {
 
 
 
+//스타일
 const MainWrap = styled.div`
     background-color: #ddd;
     height: 640px;
