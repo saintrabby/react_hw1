@@ -2,16 +2,16 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from 'styled-components'
 
-
 export default function Score(props) {
     let thisDay = useParams();
     const [num, setNum] = useState(0);
 
-    console.log(thisDay)
-
     function numChange(p) {
         setNum(p)
     }
+
+    //추가 - 키보드 입력
+    onkeydown = (e) => ( e.key >= 0 && e.key < 8 ? numChange((e.key)) : null )
 
     return (
         <MainWrap>
@@ -22,11 +22,16 @@ export default function Score(props) {
                         <WeekCircle key={i} mynum={i + 1} cnum={num} onClick={() =>
                             numChange(i + 1)} />
                     ))}
+                    {/* 추가 - 6점, 7점 */}
+                    {num > 5 ? Array(num-5).fill(0).map((v, i) => (
+                        <WeekCircle key={num+i} mynum={i + 1} cnum={num} onClick={() =>
+                            numChange(i + 1)} />
+                    )) : null }
                 </CircleBox>
 
                 <div style={{ fontSize: '18px', marginTop: '20px' }}>제 점수는 요</div>
 
-                <div style={{ fontSize: '24px', margin: '10px' }}>{num}점 입니다.</div>
+                <div style={{ fontSize: '24px', margin: '10px' }}>{num}점 입니다.{num > 5 && ' 그만 !'}</div>
 
                 <Link to='/'><BackButton>확인</BackButton></Link>
             </WeekBox>
@@ -48,6 +53,18 @@ const MainWrap = styled.div`
     margin:auto;
     transform: translateY(5%);
     border-radius: 20px;
+`
+
+const Title = styled.div`
+    font-size: 30px;
+    color:darkcyan;
+`
+
+const WeekStyle = styled.span`
+    background-color: burlywood;
+    color: #5555ff;
+    font-weight: 600;
+    border-radius: 10px;
 `
 
 const WeekBox = styled.div`
@@ -76,19 +93,6 @@ const WeekCircle = styled.div`
     border-radius: 20px;
     float: left;
     background-color: ${(prop) => (prop.mynum <= prop.cnum ? 'rebeccapurple' : '#bbb')};
-`
-
-
-const Title = styled.div`
-    font-size: 30px;
-    color:darkcyan;
-`
-
-const WeekStyle = styled.span`
-    background-color: burlywood;
-    color: #5555ff;
-    font-weight: 600;
-    border-radius: 10px;
 `
 
 const BackButton = styled.button`

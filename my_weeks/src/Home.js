@@ -3,13 +3,15 @@ import styled from 'styled-components'
 import Line from './Line'
 
 export default function Home(props) {
-    let thisweek = ['월', '화', '수', '목', '금', '토', '일']
+    let thisday = ['일', '월', '화', '수', '목', '금', '토']
+
+    let date = new Date().getDay()
 
     return (
         <MainWrap>
-            <Title>내 일주일은 ?</Title>
+            <Title>내 일주일은 ? 오늘은 <span style={{color:'#e66'}}>{thisday[date]}</span>요일</Title>
             <WeekBox>
-                {thisweek.map((v, i) => <Line week={v} key={i}/> )}
+                {thisday.map((v, i) => <Line today={thisday[date]} week={v} key={i} />)}
             </WeekBox>
         </MainWrap>
     )

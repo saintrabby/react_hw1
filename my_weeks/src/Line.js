@@ -9,7 +9,7 @@ export default function Line(props) {
 
     return (
         <div style={{ display: 'flex', flexDirection: 'row' }}>
-            <Weekday>{props.week}</Weekday>
+            <Weekday day={props}>{props.week}</Weekday>
 
             {Array(5).fill(0).map((v, i) => <WeekCircle key={i} check={randNum > i} /> )}
             
@@ -31,7 +31,7 @@ const WeekCircle = styled.div`
 `
 
 const Weekday = styled.div`
-    background-color: #333;
+    background-color: ${(prop) => (prop.day.week == prop.day.today ? '#e66' : '#333')};
     color: #bbb;
     height: 40px;
     width: 40px;
