@@ -1,17 +1,23 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from 'styled-components'
+import { db } from "./firebase";
+import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from "firebase/firestore";
+import { useEffect } from "react";
 
 export default function Score(props) {
     let thisDay = useParams();
-    const [num, setNum] = useState(0);
+    const [num, setNum] = useState();
 
     function numChange(p) {
         setNum(p)
     }
 
     //추가 - 키보드 입력
-    onkeydown = (e) => ( e.key >= 0 && e.key < 8 ? numChange((e.key)) : null )
+    onkeydown = (e) => (e.key >= 0 && e.key < 8 ? numChange(parseInt(e.key)) : null)
+
+
+
 
     return (
         <MainWrap>
@@ -23,10 +29,10 @@ export default function Score(props) {
                             numChange(i + 1)} />
                     ))}
                     {/* 추가 - 6점, 7점 */}
-                    {num > 5 ? Array(num-5).fill(0).map((v, i) => (
-                        <WeekCircle key={num+i} mynum={i + 1} cnum={num} onClick={() =>
+                    {num > 5 ? Array(num - 5).fill(0).map((v, i) => (
+                        <WeekCircle key={num + i} mynum={i + 1} cnum={num} onClick={() =>
                             numChange(i + 1)} />
-                    )) : null }
+                    )) : null}
                 </CircleBox>
 
                 <div style={{ fontSize: '18px', marginTop: '20px' }}>제 점수는 요</div>
