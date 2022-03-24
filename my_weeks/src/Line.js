@@ -10,6 +10,28 @@ export default function Line(props) {
 
     let randNum = parseInt((Math.random() * 10) % 5) + 1
 
+    let db_data_list = []
+
+    useEffect(async () => {
+        let query = await getDocs(collection(db, 'mydicts'))
+        
+        // query.forEach((v) => {
+        //     if(v.data().week === props.week) {
+        //         let doc_id = v.id
+        //         let week = v.data().week
+        //         let score = v.data().score
+
+        //         let put = { doc_id, week, score }
+    
+        //         db_data_list.unshift(put)
+        //     }
+
+        //     // console.log(db_data_list[0])
+        // })
+
+        // db_data_list.find((v)=>{ return v.week === props.week }).score
+    }, []);
+
     return (
         <div style={{ display: 'flex', flexDirection: 'row' }}>
             <Weekday day={props}>{props.week}</Weekday>

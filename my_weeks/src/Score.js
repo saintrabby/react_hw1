@@ -18,6 +18,86 @@ export default function Score(props) {
 
 
 
+    let db_data_list = []
+
+    useEffect(async () => {
+        let query = await getDocs(collection(db, 'mydicts'))
+
+        query.forEach((v) => {
+            let doc_id = v.id
+            let week = v.data().week
+            let score = v.data().score
+
+            let put = { doc_id, week, score }
+
+            db_data_list.unshift(put)
+        })
+
+        // db_data_list.map((v)=>{
+        //     console.log(v)
+        // })
+
+
+        //컬렉션 없으면 생성
+        // let week_arr = ['일', '월', '화', '수', '목', '금', '토']
+        // week_arr.map((v)=>{
+        //     console.log(v)
+        //     addDoc(collection(db, 'mydicts'), {week: v, score: 0})
+        // })
+
+
+
+        //삭제
+        // if (query.docs[0] !== undefined) {
+        //     const docRef = doc(db, 'mydicts', query.docs[0].id)
+        //     console.log(query.docs[0].id)
+        //     // deleteDoc(docRef)
+        // }
+
+        // query.docs.map((v)=>{
+        //     const docRef = doc(db, 'mydicts', v.id)
+        //     deleteDoc(docRef)
+        // })
+
+
+
+        // //수정
+        // db_data_list.map((v, i) => {
+        //     if (v.week === thisDay.weekDay) {
+        //         const docRef = doc(db, 'mydicts', v.doc_id)
+        //         if (num >= 0 && num < 8) {
+        //             db_data_list[i].score = num
+        //             updateDoc(docRef, { score: num })
+        //             // console.log(db_data_list[i])
+        //         }
+        //     }
+        // })
+        // const docRef = doc(db, 'mydicts', 'KOwVsoTahKzqTfknoVFe')
+        // updateDoc(docRef, {score: 1})
+
+
+
+        //추가
+        // addDoc(collection(db, 'mydicts'), {week: "목", score: 0})
+
+
+
+        //가져오기
+        // console.log(query.docs[0].id)
+        // console.log(query.docs[0]._document.data.value.mapValue.fields.score)
+
+        // query.forEach((doc) => {
+        //     console.log(doc.id)
+        // })
+
+
+
+
+        // let f = db_data_list.find((v) => v.week === thisDay.weekDay)
+        // console.log(f)
+        // console.log(db_data_list[0])
+
+    });
 
     return (
         <MainWrap>
